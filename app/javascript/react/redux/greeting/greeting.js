@@ -1,20 +1,20 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const GET_GREETING = "greetings/getGreeting";
+const GET = "./redux/greeting/GET";
 
 const greetingsReducer = (state = "", action) => {
   switch (action.type) {
-    case `${GET_GREETING}/fulfilled`:
-      return action.payload.message;
+    case `${GET}/fulfilled`:
+      return action.payload.text;
     default:
       return state;
   }
 };
 
-const getGreeting = createAsyncThunk(GET_GREETING, async () => {
-  const response = await axios.get("http://localhost:3000/greetings/index");
+const greet = createAsyncThunk(GET, async () => {
+  const response = await axios("http://localhost:3000/greetings/index");
   return response.data;
 });
 
-export { greetingsReducer, getGreeting };
+export { greetingsReducer, greet };
